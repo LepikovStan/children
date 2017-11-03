@@ -74,7 +74,41 @@ func simple() {
 	}
 	fmt.Println("Result = ", goodNamesCount)
 }
-func difficult() {}
+
+func hasSameLetterAfterLetter(name string) bool {
+	chars := strings.Split(name, "")
+	charsLen := len(chars)
+	for i := 2; i < charsLen; i++ {
+		if chars[i] == chars[i-2] {
+			return true
+		}
+	}
+	return false
+}
+
+func hasDuplicatePare(name string) bool {
+	nameLen := len(name)
+
+	for i := 2; i < nameLen; i++ {
+		pare := name[i-2:i]
+		if strings.Count(name, pare) > 1 {
+			return true
+		}
+	}
+
+	return false
+}
+
+func difficult() {
+	names := readFile("input.txt")
+	goodNamesCount := 0
+	for _, name := range(names) {
+		if hasSameLetterAfterLetter(name) && hasDuplicatePare(name) {
+			goodNamesCount++
+		}
+	}
+	fmt.Println("Result = ", goodNamesCount)
+}
 
 func main() {
 	start := time.Now()
